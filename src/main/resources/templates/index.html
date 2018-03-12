@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorite page</title>
+</head>
+
+<body>
+
+<center>
+    <h1>Hello</h1>
+    <!--/*@thymesVar id="someString" type="java"*/-->
+    <p th:text="${someString=='a'?'Time to go home':'Type your name'}"></p>
+
+    <form action="#" th:action="@{/data}" method="post">
+        <p><input th:type="text" th:name="name"></p>
+        <p><input th:type="submit" th:value="Send"></p>
+    </form>
+</center>
+</body>
+
+</html>
