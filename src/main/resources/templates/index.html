@@ -10,13 +10,12 @@
 <center>
     <h1>Hello</h1>
     <!--/*@thymesVar id="someString" type="java"*/-->
-    <p th:text="${someString=='a'?'Time to go home':'Type your name'}"></p>
+    <p th:text="${someString}"></p>
 
     <form action="#" th:action="@{/data}" method="post">
-        <p><input th:type="text" th:name="name"></p>
-        <p><input th:type="submit" th:value="Send"></p>
+        <p><input type="text" th:name="name"/>
+        <p><input type="submit" value="Submit"/>
     </form>
 </center>
 </body>
-
 </html>
