@@ -52,7 +52,9 @@ public class MainController {
 
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public String postData(@RequestParam(value = "name", required = false) String nameFromForm) {
-        return "Your name is: " + nameFromForm;
+    public String postData(@RequestParam(value = "name") String name,
+                           @RequestParam(value = "surname") String surname,
+                           @RequestParam(value = "age") int age) {
+        return "Your name is: " + name + ", surname is: " + surname + ((age >= 18) ? " - you are adult" : " - you are underage");
     }
 }

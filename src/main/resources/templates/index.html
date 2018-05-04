@@ -7,15 +7,18 @@
 
 <body>
 
-<center>
+<div style="text-align: center;">
     <h1>Hello</h1>
     <!--/*@thymesVar id="someString" type="java"*/-->
     <p th:text="${someString}"></p>
 
     <form action="#" th:action="@{/data}" method="post">
-        <p><input type="text" th:name="name"/>
-        <p><input type="submit" value="Submit"/>
+        <p>Name: <input type="text" th:name="name"/>
+        <p>Surname: <input type="text" th:name="surname"/>
+        <p>Age: <input type="text" th:name="age"/>
+        <p><input type="submit" value="send"/>
+
     </form>
-</center>
+</div>
 </body>
 </html>
