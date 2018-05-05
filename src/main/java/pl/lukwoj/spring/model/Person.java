@@ -1,10 +1,27 @@
 package pl.lukwoj.spring.model;
 
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.*;
+
+
 public class Person {
+    @NotEmpty //walidacja
+    @Size(min=3, max=25)
     private String name;
+    @NotEmpty
+    @Max(value = 25)
+    @Min(value = 3)
     private String surname;
+
     private int age;
+    @NotEmpty
+    @Pattern(regexp ="[0-9]{3}-[0-9]{3}-[0-9]{3}")
     private String mobile;
+    @NotEmpty
+    @Email
     private String email;
 
     //wiecej niż 3 argumenty konstruktora. Nalezy zatosować wzorzec budowniczy
@@ -24,24 +41,48 @@ public class Person {
         email = builder.mobile;
     }
 
+    public Person() {
+
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSurname() {
         return surname;
     }
 
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public int getAge() {
         return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getMobile() {
         return mobile;
     }
 
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public static class Builder{

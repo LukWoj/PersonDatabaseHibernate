@@ -3,13 +3,12 @@ package pl.lukwoj.spring.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.lukwoj.spring.model.Person;
 import pl.lukwoj.spring.model.SimpleBean;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.logging.Logger;
@@ -60,7 +59,23 @@ public class MainController {
         return "Your name is: " + name + ", surname is: " + surname + ((age >= 18) ? " - you are adult" : " - you are underage");
     }
 
-    private void testBuilder(){
+    @RequestMapping(value = "/newform", method = RequestMethod.GET)
+    public String newform(Model model) {
+        model.addAttribute("personObject", new Person());
+        return "form";
+    }
+
+    @RequestMapping(value = "/newform", method = RequestMethod.POST)
+    public String newformPost(@ModelAttribute("personObject") @Valid Person person, BindingResult result){
+        if(result.hasErrors()){
+            return "form";
+        }
+        return "result";
+        //return "Dane z klasy Person: " + person.getName();
+    }
+    // Testujemy jak działa wzorzec builder ;)
+// Nie ma wpływu na działanie springa
+    private void testBuilder() {
         Person person = new Person.Builder("Oskar").setAge(27).setEmail("lukasz@wp.pl").setSurname("Wojciech").setMobile("454-556-555").build();
         person.getAge();
     }
