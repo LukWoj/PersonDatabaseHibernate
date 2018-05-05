@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.lukwoj.spring.model.Person;
 import pl.lukwoj.spring.model.SimpleBean;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.logging.Logger;
 
 @Controller
@@ -56,5 +58,10 @@ public class MainController {
                            @RequestParam(value = "surname") String surname,
                            @RequestParam(value = "age") int age) {
         return "Your name is: " + name + ", surname is: " + surname + ((age >= 18) ? " - you are adult" : " - you are underage");
+    }
+
+    private void testBuilder(){
+        Person person = new Person.Builder("Oskar").setAge(27).setEmail("lukasz@wp.pl").setSurname("Wojciech").setMobile("454-556-555").build();
+        person.getAge();
     }
 }
