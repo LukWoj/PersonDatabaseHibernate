@@ -5,20 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.lukwoj.spring.PersonRepository;
 import pl.lukwoj.spring.model.Person;
 import pl.lukwoj.spring.model.SimpleBean;
+import pl.lukwoj.spring.model.forms.PersonForm;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.logging.Logger;
 
 @Controller
 public class MainController {
-
-
     @Autowired
     SimpleBean simpleBean;
+
+    @Autowired
+    PersonRepository personRepository;
 
     @RequestMapping("/lukasz")
     @ResponseBody
@@ -61,22 +62,26 @@ public class MainController {
 
     @RequestMapping(value = "/newform", method = RequestMethod.GET)
     public String newform(Model model) {
-        model.addAttribute("personObject", new Person());
+        model.addAttribute("personObject", new PersonForm());
         return "form";
     }
 
     @RequestMapping(value = "/newform", method = RequestMethod.POST)
-    public String newformPost(@ModelAttribute("personObject") @Valid Person person, BindingResult result){
-        if(result.hasErrors()){
+    public String newformPost(@ModelAttribute("personObject") @Valid PersonForm personForm, BindingResult result) {
+        if (result.hasErrors()) {
             return "form";
         }
+
+        Person personObject = new Person(personForm);
+        personRepository.save(personObject);
         return "result";
         //return "Dane z klasy Person: " + person.getName();
     }
+
     // Testujemy jak działa wzorzec builder ;)
-// Nie ma wpływu na działanie springa
+    // Nie ma wpływu na działanie springa
     private void testBuilder() {
-        Person person = new Person.Builder("Oskar").setAge(27).setEmail("lukasz@wp.pl").setSurname("Wojciech").setMobile("454-556-555").build();
+        PersonForm person = new PersonForm.Builder("Oskar").setAge(27).setEmail("lukasz@wp.pl").setSurname("Wojciech").setMobile("454-556-555").build();
         person.getAge();
     }
 }

@@ -1,30 +1,35 @@
 package pl.lukwoj.spring.model;
 
+import pl.lukwoj.spring.model.forms.PersonForm;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-import javax.validation.constraints.*;
-
-
+@Entity
 public class Person {
-    @NotEmpty //walidacja
-    @Size(min=3, max=25)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    //@Column(name = "aaaa")
     private String name;
-    @NotEmpty
-    @Max(value = 25)
-    @Min(value = 3)
     private String surname;
-
     private int age;
-    @NotEmpty
-    @Pattern(regexp ="[0-9]{3}-[0-9]{3}-[0-9]{3}")
     private String mobile;
-    @NotEmpty
-    @Email
     private String email;
 
-    //wiecej niż 3 argumenty konstruktora. Nalezy zatosować wzorzec budowniczy
+    public Person() {
+    }
+
+    public Person(PersonForm personForm) {
+        name = personForm.getName();
+        surname = personForm.getSurname();
+        age = personForm.getAge();
+        mobile = personForm.getMobile();
+        email = personForm.getEmail();
+    }
+
     public Person(String name, String surname, int age, String mobile, String email) {
         this.name = name;
         this.surname = surname;
@@ -33,16 +38,12 @@ public class Person {
         this.email = email;
     }
 
-    private Person(Builder builder) {
-        name = builder.name;
-        surname = builder.name;
-        age = builder.age;
-        mobile = builder.mobile;
-        email = builder.mobile;
+    public int getId() {
+        return id;
     }
 
-    public Person() {
-
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -85,40 +86,14 @@ public class Person {
         this.email = email;
     }
 
-    public static class Builder{
-        private String name;
-        private String surname;
-        private int age;
-        private String mobile;
-        private String email;
-
-        public Builder(String name){
-            this.name = name;
-        }
-
-        public Builder setSurname(String Surname){
-            this.surname = surname;
-        return this;
-        }
-
-        public Builder setAge(int age){
-            this.age = age;
-            return this;
-        }
-
-        public Builder setMobile(String mobile){
-            this.mobile = mobile;
-            return this;
-        }
-
-        public Builder setEmail(String email){
-            this.email = email;
-            return this;
-        }
-
-        public Person build(){
-            return new Person(this);
-        }
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
-
 }
