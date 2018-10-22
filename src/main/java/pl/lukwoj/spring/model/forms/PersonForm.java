@@ -83,7 +83,7 @@ public class PersonForm {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    //wzorzec projektowy builder
     public static class Builder{
         private String name;
         private String surname;
