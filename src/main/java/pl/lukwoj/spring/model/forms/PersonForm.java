@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 
 public class PersonForm {
-    @NotEmpty(message = "{NotEmpty.person.name}") //walidacja
+    @NotEmpty(message = "{NotEmpty.person.name}")
     @Size(min=3, max=25)
     private String name;
     @NotEmpty
@@ -23,7 +23,7 @@ public class PersonForm {
     @Email
     private String email;
 
-    //wiecej niż 3 argumenty konstruktora. Nalezy zatosować wzorzec budowniczy
+    //builder pattern
     public PersonForm(String name, String surname, int age, String mobile, String email) {
         this.name = name;
         this.surname = surname;

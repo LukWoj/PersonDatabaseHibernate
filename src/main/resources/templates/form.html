@@ -7,7 +7,6 @@
 
 <body>
 <div style="text-align: center;">
-
     <form action="#" th:action="@{/newform}" th:object="${personObject}" method="post">
         <p>Name: <input type="text" th:field="*{name}">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error ex.</span>
