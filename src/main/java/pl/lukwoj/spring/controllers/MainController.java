@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Controller
 public class MainController {
-    @Autowired //wstrzykiwanie ziarn
+    @Autowired
     SimpleBean simpleBean;
 
     @Autowired
